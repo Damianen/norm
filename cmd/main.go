@@ -14,6 +14,8 @@ func main() {
     http.Handle("/static/", http.StripPrefix("/static/", fileServer))
 
     http.HandleFunc("/", loginHandler.HandleLoginShow)
+    http.HandleFunc("/login", loginHandler.HandleLogin)
+    http.HandleFunc("/logout", loginHandler.HandleLogout)
 
     fmt.Println("Server is listening on port 8080")
     log.Fatal(http.ListenAndServe(":8080", nil))

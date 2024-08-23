@@ -1,13 +1,14 @@
 package login
 
-templ Get() {
-	<div class="flex h-screen flex-col justify-center px-6 py-12 lg:px-8">
+templ Get(fail bool) {
+	<div id="loginFrom" class="flex h-screen flex-col justify-center px-6 py-12 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
 			<img class="mx-auto h-28 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Albert_Heijn_Logo.svg/800px-Albert_Heijn_Logo.svg.png" alt="Your Company"/>
 			<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Log in met jouw pnl</h2>
 		</div>
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-			<form class="space-y-6" action="/login" method="POST">
+			@Error(fail)
+			<form class="space-y-6" hx-post="/login" hx-target="#loginFrom" hx-swap="outerHTML">
 				<div>
 					<label for="pnl" class="block text-sm font-medium leading-6 text-white">pnl</label>
 					<div class="mt-2">
@@ -31,4 +32,21 @@ templ Get() {
 			</form>
 		</div>
 	</div>
+}
+
+templ Error(fail bool) {
+	if fail {
+		<div class="rounded-md bg-red-50 p-4 mb-2">
+			<div class="flex">
+				<div class="flex-shrink-0">
+					<svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+						<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd"></path>
+					</svg>
+				</div>
+				<div class="ml-3">
+					<h3 class="text-sm font-medium text-red-800">Jouw pnl of wachtwoord is niet correct</h3>
+				</div>
+			</div>
+		</div>
+	}
 }

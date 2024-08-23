@@ -1,7 +1,7 @@
 package dashboard
 
-templ Get() {
-	<div>
+templ Get(pnl string) {
+	<div id="loggedIn">
 		<!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
 		<div id="sidebar" class="relative z-50 lg:hidden" role="dialog" aria-modal="true">
 			<div id="sidebar" class="fixed inset-0 bg-gray-900/80 transition-opacity ease-linear duration-300 opacity-100" aria-hidden="true"></div>
@@ -246,15 +246,15 @@ templ Get() {
 								<span class="sr-only">Open user menu</span>
 								<img class="h-8 w-8 rounded-full bg-gray-50" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""/>
 								<span class="hidden lg:flex lg:items-center">
-									<span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">Damian Buskens</span>
+									<span class="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">{ pnl } </span>
 									<svg class="ml-2 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 										<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path>
 									</svg>
 								</span>
 							</button>
 							<div id="user-menu-div" class="transition ease-out duration-100 transform opacity-0 scale-95 absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-								<a href="#" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
-								<a href="#" class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a>
+								<a class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-0">Your profile</a>
+								<button hx-post="/logout" hx-target="#loggedIn" hx-swap="outerHTML"><a class="block px-3 py-1 text-sm leading-6 text-gray-900" role="menuitem" tabindex="-1" id="user-menu-item-1">Sign out</a></button>
 							</div>
 						</div>
 					</div>
@@ -268,47 +268,47 @@ templ Get() {
 		</div>
 	</div>
 	<script>
-    document.getElementById("user-menu-button").addEventListener("click", () => {
-        div = document.getElementById("user-menu-div");
-        if (div.classList.contains("opacity-100")) {
-            div.classList.remove("opacity-100");
-            div.classList.remove("scale-100");
-            div.classList.add("opacity-0");
-            div.classList.add("scale-95");
-        } else {
-            div.classList.remove("opacity-0");
-            div.classList.remove("scale-95");
-            div.classList.add("opacity-100");
-            div.classList.add("scale-100");
-        }
-    });
-  </script>
+		document.getElementById("user-menu-button").addEventListener("click", () => {
+			div = document.getElementById("user-menu-div");
+			if (div.classList.contains("opacity-100")) {
+				div.classList.remove("opacity-100");
+				div.classList.remove("scale-100");
+				div.classList.add("opacity-0");
+				div.classList.add("scale-95");
+			} else {
+				div.classList.remove("opacity-0");
+				div.classList.remove("scale-95");
+				div.classList.add("opacity-100");
+				div.classList.add("scale-100");
+			}
+		});
+	</script>
 	<script>
-    document.querySelectorAll("#toggle-sidebar").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            divs = document.querySelectorAll("#sidebar");
-                divs.forEach((div) => {
-                    if (div.classList.contains("z-50")) { 
-                        div.classList.remove("z-50");
-                        div.classList.add("-z-10");
-                    } else if (div.classList.contains("-z-10")){
-                        div.classList.remove("-z-10");
-                        div.classList.add("z-50")
-                    } else if (div.classList.contains("opacity-100")) {
-                        div.classList.remove("opacity-100");
-                        div.classList.add("opacity-0");
-                    } else if (div.classList.contains("translate-x-0")) {
-                        div.classList.remove("translate-x-0");
-                        div.classList.add("-translate-x-full");
-                    } else if (div.classList.contains("-translate-x-full")) {
-                        div.classList.remove("-translate-x-full");
-                        div.classList.add("translate-x-0"); 
-                    } else if (div.classList.contains("opacity-0")) {
-                        div.classList.remove("opacity-0");
-                        div.classList.add("opacity-100");
-                    }
-                })
-        });
-    })
+		document.querySelectorAll("#toggle-sidebar").forEach((btn) => {
+			btn.addEventListener("click", () => {
+				divs = document.querySelectorAll("#sidebar");
+					divs.forEach((div) => {
+						if (div.classList.contains("z-50")) { 
+							div.classList.remove("z-50");
+							div.classList.add("-z-10");
+						} else if (div.classList.contains("-z-10")){
+							div.classList.remove("-z-10");
+							div.classList.add("z-50")
+						} else if (div.classList.contains("opacity-100")) {
+							div.classList.remove("opacity-100");
+							div.classList.add("opacity-0");
+						} else if (div.classList.contains("translate-x-0")) {
+							div.classList.remove("translate-x-0");
+							div.classList.add("-translate-x-full");
+						} else if (div.classList.contains("-translate-x-full")) {
+							div.classList.remove("-translate-x-full");
+							div.classList.add("translate-x-0"); 
+						} else if (div.classList.contains("opacity-0")) {
+							div.classList.remove("opacity-0");
+							div.classList.add("opacity-100");
+						}
+					})
+			});
+		})
   </script>
 }
