@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
@@ -45,4 +46,19 @@ func verifyToken(tokenString string) (string, error) {
     return "", fmt.Errorf("no pnl found")
 }
 
+func getCookieData(r *http.Request) (string, error) {
+    cookie, err := r.Cookie("JWT-token")
 
+    if err != nil {
+        return "", err
+    }
+
+    token := cookie.Value
+    pnl, err := verifyToken(token)
+
+    if err != nil {
+        return "", err
+    }
+
+    return pnl, nil
+}
