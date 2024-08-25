@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Damianen/appie-app/view/aisle"
+	"github.com/Damianen/norm/view/aisle"
 )
 
 type AisleHandler struct {}

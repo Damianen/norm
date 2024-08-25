@@ -1,13 +1,21 @@
 package main
 
 import (
-    "github.com/Damianen/appie-app/handler"
-    "fmt"
-    "log"
-    "net/http"
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/Damianen/norm/handler"
+	"github.com/Damianen/norm/model"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+    godotenv.Load(".env")
+
+    db := model.DbInit()
+    model.CreateTables(db)
+
     loginHandler := handler.LoginHandler{}
     teamHandler := handler.TeamHandler{}
     aisleHandler := handler.AisleHandler{}
@@ -32,4 +40,6 @@ func main() {
 
     fmt.Println("Server is listening on port 8080")
     log.Fatal(http.ListenAndServe(":8080", nil))
+
+    db.Close()
 }

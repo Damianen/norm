@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Damianen/appie-app/view/stats"
+	"github.com/Damianen/norm/view/stats"
 )
 
 type StatsHandler struct {}

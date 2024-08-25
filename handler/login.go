@@ -4,8 +4,8 @@ import (
 	"net/http"
     "time"
 
-	"github.com/Damianen/appie-app/view/base"
-	"github.com/Damianen/appie-app/view/login"
+	"github.com/Damianen/norm/view/base"
+	"github.com/Damianen/norm/view/login"
 )
 
 type LoginHandler struct {}

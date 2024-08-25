@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Damianen/appie-app/view/dashboard"
+	"github.com/Damianen/norm/view/dashboard"
 )
 
 type DashboardHandler struct {}

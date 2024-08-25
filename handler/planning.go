@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Damianen/appie-app/view/planning"
+	"github.com/Damianen/norm/view/planning"
 )
 
 type PlanningHandler struct {}

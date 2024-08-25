@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Damianen/appie-app/view/team"
+	"github.com/Damianen/norm/view/team"
 )
 
 type TeamHandler struct {}

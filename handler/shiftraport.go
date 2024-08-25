@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/Damianen/appie-app/view/shiftraport"
+	"github.com/Damianen/norm/view/shiftraport"
 )
 
 type ShiftraportHandler struct {}
