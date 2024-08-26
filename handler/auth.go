@@ -5,15 +5,16 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Damianen/norm/model"
 	"github.com/golang-jwt/jwt/v5"
 )
 
 var secretKey = []byte("secret-key")
 
-func createToken(pnl string) (string, error) {
+func createToken(management model.Management) (string, error) {
     token := jwt.NewWithClaims(jwt.SigningMethodHS256,
         jwt.MapClaims{
-            "pnl": pnl,
+            "management": management,
             "exp": time.Now().Add(time.Hour * 24).Unix(),
         })
 
@@ -26,39 +27,47 @@ func createToken(pnl string) (string, error) {
 }
 
 
-func verifyToken(tokenString string) (string, error) {
+func verifyToken(tokenString string) (model.Management, error) {
     token, err := jwt.Parse(tokenString, func (token *jwt.Token) (interface{}, error) {
         return secretKey, nil
     })
 
    if err != nil {
-        return "", err
+        return model.Management{}, err
     }
 
     if !token.Valid {
-        return "", fmt.Errorf("invalid token")
+        return model.Management{}, fmt.Errorf("invalid token")
     }
 
     if claims, ok := token.Claims.(jwt.MapClaims); ok {
-        return claims["pnl"].(string), nil
+
+        data := claims["management"].(map[string]interface{})
+        management := model.Management{}
+        management.Email = data["Email"].(string)
+        management.Function = data["Function"].(string)
+        management.Id = int(data["Id"].(float64))
+        management.Name = data["Name"].(string)
+        management.Pnl = data["Pnl"].(string)
+        return management, nil
     }
 
-    return "", fmt.Errorf("no pnl found")
+    return model.Management{}, fmt.Errorf("no pnl found")
 }
 
-func getCookieData(r *http.Request) (string, error) {
+func getCookieData(r *http.Request) (model.Management, error) {
     cookie, err := r.Cookie("JWT-token")
 
     if err != nil {
-        return "", err
+        return model.Management{}, err
     }
 
     token := cookie.Value
-    pnl, err := verifyToken(token)
+    management, err := verifyToken(token)
 
     if err != nil {
-        return "", err
+        return model.Management{}, err
     }
 
-    return pnl, nil
+    return management, nil
 }

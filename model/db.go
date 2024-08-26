@@ -9,7 +9,7 @@ import (
 )
 
 func DbInit() *sql.DB {
-    connStr := os.Getenv("CONNECTION_STRING")
+	connStr := os.Getenv("CONNECTION_STRING")
 
 	db, err := sql.Open("postgres", connStr)
 
@@ -30,7 +30,7 @@ func CreateTables(db *sql.DB) {
         DROP TABLE IF EXISTS Aisle CASCADE;
         DROP TABLE IF EXISTS Raport CASCADE;
         DROP TABLE IF EXISTS Shift CASCADE;
-        DROP TABLE IF EXISTS Shiftleader CASCADE;
+        DROP TABLE IF EXISTS Management CASCADE;
         DROP TABLE IF EXISTS AisleStocker CASCADE;
     `
 
@@ -66,9 +66,13 @@ func CreateTables(db *sql.DB) {
 		log.Fatal(err)
 	}
 
-	query = `CREATE TABLE Shiftleader(
+	query = `CREATE TABLE Management(
 	    id SERIAL PRIMARY KEY,
-	    name varchar(255) NOT NULL
+	    pnl varchar(255) NOT NULL,
+        password varchar(255) NOT NULL,
+        name varchar(255) NOT NULL,
+        email varchar(255) NOT NULL,
+        function varchar(255) NOT NULL
 	)`
 
 	_, err = db.Exec(query)
@@ -80,7 +84,7 @@ func CreateTables(db *sql.DB) {
 	    id SERIAL PRIMARY KEY,
 	    message varchar(1000) NOT NULL,
 	    recepientId int,
-	    FOREIGN KEY (recepientId) REFERENCES Shiftleader(id)
+	    FOREIGN KEY (recepientId) REFERENCES Management(id)
 	)`
 
 	_, err = db.Exec(query)
@@ -106,8 +110,8 @@ func CreateTables(db *sql.DB) {
 	    raportId int,
 	    shiftleaderVers int NOT NULL,
 	    shiftleaderHB int NOT NULL,
-        FOREIGN KEY (shiftleaderVers) REFERENCES Shiftleader(id),
-	    FOREIGN KEY (shiftleaderHB) REFERENCES Shiftleader(id)
+        FOREIGN KEY (shiftleaderVers) REFERENCES Management(id),
+	    FOREIGN KEY (shiftleaderHB) REFERENCES Management(id)
 	)`
 
 	_, err = db.Exec(query)

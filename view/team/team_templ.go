@@ -8,7 +8,9 @@ package team
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Show() templ.Component {
+import "github.com/Damianen/norm/model"
+
+func Show(stockers []model.Stocker, errorComp templ.Component, err bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -26,7 +28,43 @@ func Show() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"bg-gray-800\"><div class=\"mx-auto max-w-8xl\"><div class=\"bg-gray-800 py-10\"><div class=\"px-4 sm:px-6 lg:px-8\"><div class=\"sm:flex sm:items-center\"><div class=\"sm:flex-auto\"><h1 class=\"text-base font-semibold leading-6 text-white\">Users</h1><p class=\"mt-2 text-sm text-gray-300\">A list of all the users in your account including their name, title, email and role.</p></div><div class=\"mt-4 sm:ml-16 sm:mt-0 sm:flex-none\"><button type=\"button\" class=\"block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500\">Add user</button></div></div><div class=\"mt-8 flow-root\"><div class=\"-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8\"><div class=\"inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8\"><table class=\"min-w-full divide-y divide-gray-700\"><thead><tr><th scope=\"col\" class=\"py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0\">Name</th><th scope=\"col\" class=\"px-3 py-3.5 text-left text-sm font-semibold text-white\">Title</th><th scope=\"col\" class=\"px-3 py-3.5 text-left text-sm font-semibold text-white\">Email</th><th scope=\"col\" class=\"px-3 py-3.5 text-left text-sm font-semibold text-white\">Role</th><th scope=\"col\" class=\"relative py-3.5 pl-3 pr-4 sm:pr-0\"><span class=\"sr-only\">Edit</span></th></tr></thead> <tbody class=\"divide-y divide-gray-800\"><tr><td class=\"whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0\">Lindsay Walton</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">Front-end Developer</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">lindsay.walton@example.com</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">Member</td><td class=\"relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0\"><a href=\"#\" class=\"text-indigo-400 hover:text-indigo-300\">Edit<span class=\"sr-only\">, Lindsay Walton</span></a></td></tr><tr><td class=\"whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0\">Lindsay Walton</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">Front-end Developer</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">lindsay.walton@example.com</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">Member</td><td class=\"relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0\"><a href=\"#\" class=\"text-indigo-400 hover:text-indigo-300\">Edit<span class=\"sr-only\">, Lindsay Walton</span></a></td></tr><!-- More people... --></tbody></table></div></div></div></div></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"bg-gray-800\"><div class=\"mx-auto max-w-8xl\"><div class=\"bg-gray-800 py-10\"><div class=\"px-4 sm:px-6 lg:px-8\"><div class=\"sm:flex sm:items-center\"><div class=\"sm:flex-auto\"><h1 class=\"text-base font-semibold leading-6 text-white\">Ons team</h1><p class=\"mt-2 text-sm text-gray-300\">Dit zijn alle vullers die bij onze albert heijn werken.</p></div><div class=\"mt-4 sm:ml-16 sm:mt-0 sm:flex-none\"><button hx-get=\"/stockerInsert\" hx-trigger=\"click\" hx-target=\"#contentDiv\" hx-swap=\"innerHTML\" class=\"block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500\">Voeg vuller toe</button></div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		if err {
+			templ_7745c5c3_Err = errorComp.Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mt-8 flow-root\"><div class=\"-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8\"><div class=\"inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8\"><table class=\"min-w-full divide-y divide-gray-700\"><thead><tr><th scope=\"col\" class=\"py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0\">Name</th><th scope=\"col\" class=\"px-3 py-3.5 text-left text-sm font-semibold text-white\">Title</th><th scope=\"col\" class=\"px-3 py-3.5 text-left text-sm font-semibold text-white\">Email</th><th scope=\"col\" class=\"px-3 py-3.5 text-left text-sm font-semibold text-white\">Role</th><th scope=\"col\" class=\"relative py-3.5 pl-3 pr-4 sm:pr-0\"><span class=\"sr-only\">Edit</span></th></tr></thead> <tbody class=\"divide-y divide-gray-800\"><tr><td class=\"whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0\">Lindsay Walton</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">Front-end Developer</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">lindsay.walton@example.com</td><td class=\"whitespace-nowrap px-3 py-4 text-sm text-gray-300\">Member</td><td class=\"relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0\"><a href=\"#\" class=\"text-indigo-400 hover:text-indigo-300\">Edit<span class=\"sr-only\">, Lindsay Walton</span></a></td></tr></tbody></table></div></div></div></div></div></div></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		return templ_7745c5c3_Err
+	})
+}
+
+func NewStocker() templ.Component {
+	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
+		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
+		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
+		if !templ_7745c5c3_IsBuffer {
+			defer func() {
+				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err == nil {
+					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+				}
+			}()
+		}
+		ctx = templ.InitializeContext(ctx)
+		templ_7745c5c3_Var2 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var2 == nil {
+			templ_7745c5c3_Var2 = templ.NopComponent
+		}
+		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex min-h-full flex-col justify-center px-6 py-12 lg:px-8\"><div class=\"sm:mx-auto sm:w-full sm:max-w-sm\"><h2 class=\"mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white\">Nieuwe manager of shiftleider</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\"><form class=\"space-y-6\" hx-post=\"/team\" hx-target=\"#contentDiv\" hx-swap=\"innerHTML\"><div><label for=\"name\" class=\"block text-sm font-medium leading-6 text-white\">Naam</label><div class=\"mt-2\"><input id=\"name\" name=\"name\" type=\"name\" required class=\"block w-full rounded-md border-0 bg-white/5 p-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6\"></div></div><div><button type=\"submit\" class=\"flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500\">Voeg manager of shiftleider toe</button></div></form></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
