@@ -21,10 +21,15 @@ func InsertManagement(db *sql.DB, sl Management) error {
 		return err
 	}
 
-	query := `INSERT INTO management (pnl, password, name, email, function) VALUES ($1, $2, $3, $4, $5);`
+	query := `INSERT INTO management (pnl, password, name, email, function)
+        VALUES ($1, $2, $3, $4, $5) RETURNING id;`
 	hashedPassword := string(bytes)
 
-	db.QueryRow(query, sl.Pnl, hashedPassword, sl.Name, sl.Email, sl.Function)
+    var pk int
+    err = db.QueryRow(query, sl.Pnl, hashedPassword, sl.Name, sl.Email, sl.Function).Scan(&pk)
+    if err != nil {
+        return err
+    }
 
 	return nil
 }
