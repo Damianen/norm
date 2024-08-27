@@ -18,7 +18,7 @@ func main() {
 
 	loginHandler := handler.LoginHandler{db}
 	teamHandler := handler.TeamHandler{db}
-	aisleHandler := handler.AisleHandler{}
+	aisleHandler := handler.AisleHandler{db}
 	shiftRaportHandler := handler.ShiftraportHandler{}
 	dashboardHandler := handler.DashboardHandler{}
 	statsHandler := handler.StatsHandler{}
@@ -34,7 +34,7 @@ func main() {
 
 	http.HandleFunc("/team", teamHandler.HandleTeam)
 	http.HandleFunc("/dashboard", dashboardHandler.HandleDashboardShow)
-	http.HandleFunc("/aisle", aisleHandler.HandleAisleShow)
+	http.HandleFunc("/aisle", aisleHandler.HandleAisle)
 	http.HandleFunc("/planning", planningHandler.HandlePlanningShow)
 	http.HandleFunc("/stats", statsHandler.HandleStatsShow)
 	http.HandleFunc("/shiftraport", shiftRaportHandler.HandleShiftraportShow)
@@ -42,6 +42,7 @@ func main() {
 
 	http.HandleFunc("/managementInsert", managementHandler.HandleInsertManagementShow)
     http.HandleFunc("/stockerInsert", teamHandler.HandleInsertStockerShow)
+    http.HandleFunc("/aisleInsert", aisleHandler.HandleAisleInsertShow)
 
 	fmt.Println("Server is listening on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))

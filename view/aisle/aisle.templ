@@ -1,54 +1,45 @@
 package aisle
 
-templ Show() {
+import "github.com/Damianen/norm/model"
+
+templ Show(aisles []model.Aisle, errorComp templ.Component, err bool) {
 	<div class="bg-gray-800">
 		<div class="mx-auto max-w-8xl">
 			<div class="bg-gray-800 py-10">
 				<div class="px-4 sm:px-6 lg:px-8">
 					<div class="sm:flex sm:items-center">
 						<div class="sm:flex-auto">
-							<h1 class="text-base font-semibold leading-6 text-white">Users</h1>
-							<p class="mt-2 text-sm text-gray-300">A list of all the users in your account including their name, title, email and role.</p>
+							<h1 class="text-base font-semibold leading-6 text-white">Gangen</h1>
+							<p class="mt-2 text-sm text-gray-300">Dit zijn alle gangen bij onze albertheijn.</p>
 						</div>
 						<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-							<button type="button" class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Add user</button>
+							<button hx-get="/aisleInsert" hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Voeg gang toe</button>
 						</div>
 					</div>
+					if err {
+						@errorComp
+					}
 					<div class="mt-8 flow-root">
 						<div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
 							<div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
 								<table class="min-w-full divide-y divide-gray-700">
 									<thead>
 										<tr>
-											<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Name</th>
-											<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Title</th>
-											<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Email</th>
-											<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-white">Role</th>
+											<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Naam</th>
 											<th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
 												<span class="sr-only">Edit</span>
 											</th>
 										</tr>
 									</thead>
 									<tbody class="divide-y divide-gray-800">
-										<tr>
-											<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">Lindsay Walton</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">Front-end Developer</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">lindsay.walton@example.com</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">Member</td>
-											<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-												<a href="#" class="text-indigo-400 hover:text-indigo-300">Edit<span class="sr-only">, Lindsay Walton</span></a>
-											</td>
-										</tr>
-										<tr>
-											<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">Lindsay Walton</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">Front-end Developer</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">lindsay.walton@example.com</td>
-											<td class="whitespace-nowrap px-3 py-4 text-sm text-gray-300">Member</td>
-											<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-												<a href="#" class="text-indigo-400 hover:text-indigo-300">Edit<span class="sr-only">, Lindsay Walton</span></a>
-											</td>
-										</tr>
-										<!-- More people... -->
+										for _, aisle := range aisles {
+											<tr>
+												<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">{ aisle.Name }</td>
+												<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+													<a href="#" class="text-indigo-400 hover:text-indigo-300">Edit<span class="sr-only">{ aisle.Name }</span></a>
+												</td>
+											</tr>
+										}
 									</tbody>
 								</table>
 							</div>
@@ -56,6 +47,27 @@ templ Show() {
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+}
+
+templ NewAisle() {
+	<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+			<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Nieuwe gang</h2>
+		</div>
+		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+			<form class="space-y-6" hx-post="/aisle" hx-target="#contentDiv" hx-swap="innerHTML">
+				<div>
+					<label for="name" class="block text-sm font-medium leading-6 text-white">Naam</label>
+					<div class="mt-2">
+						<input id="name" name="name" type="name" required class="block w-full rounded-md border-0 bg-white/5 p-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"/>
+					</div>
+				</div>
+				<div>
+					<button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Voeg gang toe</button>
+				</div>
+			</form>
 		</div>
 	</div>
 }
