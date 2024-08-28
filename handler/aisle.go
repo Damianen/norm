@@ -14,10 +14,22 @@ type AisleHandler struct {
 }
 
 func (h AisleHandler) HandleAisleInsertShow(w http.ResponseWriter, r *http.Request) {
+    err := verifyCookie(r)
+    if err != nil {
+        ServeLogin(w, r)
+        return
+    }
+
     aisle.NewAisle().Render(r.Context(), w)
 }
 
 func (h AisleHandler) HandleAisle(w http.ResponseWriter, r *http.Request) {
+    err := verifyCookie(r)
+    if err != nil {
+        ServeLogin(w, r)
+        return
+    }
+
     switch r.Method {
     case "GET":
         h.HandleAisleShow(w, r)

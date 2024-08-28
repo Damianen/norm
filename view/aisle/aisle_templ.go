@@ -38,7 +38,7 @@ func Show(aisles []model.Aisle, errorComp templ.Component, err bool) templ.Compo
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mt-8 flow-root\"><div class=\"-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8\"><div class=\"inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8\"><table class=\"min-w-full divide-y divide-gray-700\"><thead><tr><th scope=\"col\" class=\"py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0\">Naam</th><th scope=\"col\" class=\"relative py-3.5 pl-3 pr-4 sm:pr-0\"><span class=\"sr-only\">Edit</span></th></tr></thead> <tbody class=\"divide-y divide-gray-800\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mt-8 flow-root\"><div class=\"-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8\"><div class=\"inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8\"><table class=\"min-w-full divide-y divide-gray-700\"><thead><tr><th scope=\"col\" class=\"py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0\">Naam</th><th scope=\"col\" class=\"relative py-3.5 pl-3 pr-4 sm:pr-0\"><span class=\"sr-only\">Delete</span></th></tr></thead> <tbody class=\"divide-y divide-gray-800\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -56,20 +56,20 @@ func Show(aisles []model.Aisle, errorComp templ.Component, err bool) templ.Compo
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</td><td class=\"relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0\"><a href=\"#\" class=\"text-indigo-400 hover:text-indigo-300\">Edit<span class=\"sr-only\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</td><td class=\"relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0\"><button hx-delete=\"/aisle\" hx-trigger=\"click\" hx-target=\"#contentDiv\" hx-swap=\"innerHTML\" class=\"text-indigo-400 hover:text-indigo-300\">Delete<span class=\"sr-only\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(aisle.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/aisle/aisle.templ`, Line: 39, Col: 109}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/aisle/aisle.templ`, Line: 39, Col: 189}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span></a></td></tr>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span></button></td></tr>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

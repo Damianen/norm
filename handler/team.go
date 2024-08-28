@@ -14,10 +14,20 @@ type TeamHandler struct {
 }
 
 func (h TeamHandler) HandleInsertStockerShow(w http.ResponseWriter, r*http.Request) {
+    err := verifyCookie(r)
+    if err != nil {
+        ServeLogin(w, r)
+        return
+    }
     team.NewStocker().Render(r.Context(), w)
 }
 
 func (h TeamHandler) HandleTeam(w http.ResponseWriter, r *http.Request) {
+    err := verifyCookie(r)
+    if err != nil {
+        ServeLogin(w, r)
+        return
+    }
     switch r.Method {
     case "GET":
         h.HandleTeamShow(w, r)

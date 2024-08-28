@@ -15,6 +15,12 @@ type ManagementHandler struct {
 }
 
 func (h ManagementHandler) HandleManagement(w http.ResponseWriter, r *http.Request) {
+    err := verifyCookie(r)
+    if err != nil {
+        ServeLogin(w, r)
+        return
+    }
+
     switch r.Method {
     case "GET":
         h.handleManagementShow(w, r)
@@ -26,6 +32,11 @@ func (h ManagementHandler) HandleManagement(w http.ResponseWriter, r *http.Reque
 }
 
 func (h ManagementHandler) HandleInsertManagementShow(w http.ResponseWriter, r *http.Request) {
+    err := verifyCookie(r)
+    if err != nil {
+        ServeLogin(w, r)
+        return
+    }
     management.NewManagement().Render(r.Context(), w)
 }
 

@@ -27,7 +27,7 @@ templ Show(aisles []model.Aisle, errorComp templ.Component, err bool) {
 										<tr>
 											<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Naam</th>
 											<th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-												<span class="sr-only">Edit</span>
+												<span class="sr-only">Delete</span>
 											</th>
 										</tr>
 									</thead>
@@ -36,7 +36,7 @@ templ Show(aisles []model.Aisle, errorComp templ.Component, err bool) {
 											<tr>
 												<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">{ aisle.Name }</td>
 												<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-													<a href="#" class="text-indigo-400 hover:text-indigo-300">Edit<span class="sr-only">{ aisle.Name }</span></a>
+													<button hx-delete="/aisle" hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="text-indigo-400 hover:text-indigo-300">Delete<span class="sr-only">{ aisle.Name }</span></button>
 												</td>
 											</tr>
 										}
