@@ -33,10 +33,10 @@ templ Show(aisles []model.Aisle, errorComp templ.Component, err bool) {
 									</thead>
 									<tbody class="divide-y divide-gray-800">
 										for _, aisle := range aisles {
-											<tr>
+											<tr hx-trigger="click" hx-get={ "/aisle?id=" + aisle.Id } class="cursor-pointer" hx-target="#contentDiv" hx-swap="innerHTML">
 												<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">{ aisle.Name }</td>
 												<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-													<button hx-delete="/aisle" hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="text-indigo-400 hover:text-indigo-300">Delete<span class="sr-only">{ aisle.Name }</span></button>
+													<button hx-delete={ "/aisle?delete=" + aisle.Id } hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="text-indigo-400 hover:text-indigo-300">Delete<span class="sr-only">{ aisle.Name }</span></button>
 												</td>
 											</tr>
 										}
@@ -68,6 +68,23 @@ templ NewAisle() {
 					<button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Voeg gang toe</button>
 				</div>
 			</form>
+		</div>
+	</div>
+}
+
+templ AisleInfo(aisle model.Aisle) {
+	<div>
+		<div class="px-4 sm:px-0">
+			<h3 class="text-base font-semibold leading-7 text-white">Gang Informatie</h3>
+			<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">Statestieken en informatie over de { aisle.Name } gang</p>
+		</div>
+		<div class="mt-6 border-t border-white/10">
+			<dl class="divide-y divide-white/10">
+				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+					<dt class="text-sm font-medium leading-6 text-white">Naam</dt>
+					<dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">{ aisle.Name }</dd>
+				</div>
+			</dl>
 		</div>
 	</div>
 }

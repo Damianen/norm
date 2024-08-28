@@ -1,12 +1,13 @@
 package model
 
-import "database/sql"
+import (
+	"database/sql"
+)
 
 type Aisle struct {
-	Id   int
+	Id   string
 	Name string
 }
-
 
 func InsertAilse(db *sql.DB, aisle Aisle) error {
     query := `INSERT INTO Aisle (name) VALUES ($1) RETURNING id;`
@@ -20,6 +21,19 @@ func InsertAilse(db *sql.DB, aisle Aisle) error {
     return nil
 }
 
+func GetAisle(db *sql.DB, id int) (Aisle, error) {
+    query := "SELECT * FROM Aisle WHERE id = $1;"
+
+    aisle := Aisle{}
+
+    err := db.QueryRow(query, id).Scan(&aisle.Id, &aisle.Name)
+    if err != nil {
+        return Aisle{}, err
+    }
+
+   return aisle, nil
+}
+
 func GetAisles(db *sql.DB) ([]Aisle, error) {
     query := "SELECT * FROM Aisle;"
     data, err := db.Query(query)
@@ -28,7 +42,7 @@ func GetAisles(db *sql.DB) ([]Aisle, error) {
     }
 
     aisle := []Aisle{}
-    var id int
+    var id string
     var name string
 
     for data.Next() {
@@ -40,4 +54,22 @@ func GetAisles(db *sql.DB) ([]Aisle, error) {
     }
 
     return aisle, nil
+}
+
+func DeleteAisle(db *sql.DB, aisleId int) error {
+    query := "DELETE FROM Aisle WHERE id = $1"
+    result, err := db.Exec(query, aisleId)
+    if err != nil && result != nil {
+        return err
+    }
+    return nil
+}
+
+func UpdateAisle(db *sql.DB, aisle Aisle) error {
+    query := "UPDATE Aisle SET name = $1 WHERE id = $2;"
+    result, err := db.Exec(query, aisle.Name, aisle.Id)
+    if err != nil && result != nil {
+        return err
+    }
+    return nil
 }
