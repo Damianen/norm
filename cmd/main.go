@@ -44,6 +44,10 @@ func main() {
     http.HandleFunc("/stockerInsert", teamHandler.HandleInsertStockerShow)
     http.HandleFunc("/aisleInsert", aisleHandler.HandleAisleInsertShow)
 
+    http.HandleFunc("/aisleUpdate", aisleHandler.HandleAisleUpdateShow)
+
+    http.HandleFunc("/aisleGet", aisleHandler.HandleAisleInfoShow)
+
 	fmt.Println("Server is listening on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 

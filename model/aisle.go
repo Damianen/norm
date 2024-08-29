@@ -2,6 +2,7 @@ package model
 
 import (
 	"database/sql"
+	"strconv"
 )
 
 type Aisle struct {
@@ -21,12 +22,17 @@ func InsertAilse(db *sql.DB, aisle Aisle) error {
     return nil
 }
 
-func GetAisle(db *sql.DB, id int) (Aisle, error) {
+func GetAisle(db *sql.DB, idString string) (Aisle, error) {
+    id, err := strconv.Atoi(idString)
+    if err != nil {
+        return Aisle{}, err
+    }
+
     query := "SELECT * FROM Aisle WHERE id = $1;"
 
     aisle := Aisle{}
 
-    err := db.QueryRow(query, id).Scan(&aisle.Id, &aisle.Name)
+    err = db.QueryRow(query, id).Scan(&aisle.Id, &aisle.Name)
     if err != nil {
         return Aisle{}, err
     }

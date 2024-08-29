@@ -24,14 +24,8 @@ func (h AisleHandler) HandleAisleInsertShow(w http.ResponseWriter, r *http.Reque
     aisle.NewAisle().Render(r.Context(), w)
 }
 
-func (h AisleHandler) HandleAisleUpdateShow(w http.ResponseWriter, r *http.Request) {
-    aisleId := r.URL.Query()["id"][0]
-    id, err := strconv.Atoi(aisleId)
-    if err != nil {
-        aisle.Show(nil, popup.Err(err.Error()), true).Render(r.Context(), w)
-        return
-    }
-
+func (h AisleHandler) HandleAisleInfoShow(w http.ResponseWriter, r *http.Request) {
+    id := r.URL.Query()["id"][0]
     aisleModel, err := model.GetAisle(h.DB, id)
     if err != nil {
         aisle.Show(nil, popup.Err(err.Error()), true).Render(r.Context(), w)
@@ -41,15 +35,21 @@ func (h AisleHandler) HandleAisleUpdateShow(w http.ResponseWriter, r *http.Reque
     aisle.AisleInfo(aisleModel).Render(r.Context(), w)
 }
 
+func (h AisleHandler) HandleAisleUpdateShow(w http.ResponseWriter, r *http.Request) {
+    id := r.URL.Query()["id"][0]
+    aisleModel, err := model.GetAisle(h.DB, id)
+    if err != nil {
+        aisle.Show(nil, popup.Err(err.Error()), true).Render(r.Context(), w)
+        return
+    }
+
+    aisle.UpdateAisle(aisleModel).Render(r.Context(), w)
+}
+
 func (h AisleHandler) HandleAisle(w http.ResponseWriter, r *http.Request) {
     err := verifyCookie(r)
     if err != nil {
         ServeLogin(w, r)
-        return
-    }
-
-    if r.URL.Query().Has("id") {
-        h.HandleAisleUpdateShow(w, r)
         return
     }
 
@@ -63,8 +63,8 @@ func (h AisleHandler) HandleAisle(w http.ResponseWriter, r *http.Request) {
     case "DELETE":
         h.HandleAisleDelete(w, r)
         return
-    case "UPDATE":
-        h.HandleAisleUpdateShow(w, r)
+    case "PUT":
+        h.HandleAislePut(w, r)
         return
 }
 }
@@ -101,5 +101,17 @@ func (h AisleHandler) HandleAisleDelete(w http.ResponseWriter, r *http.Request) 
     if err != nil {
         aisle.Show(nil, popup.Err(err.Error()), true).Render(r.Context(), w)
     }
+    h.HandleAisleGet(w, r)
+}
+
+func (h AisleHandler) HandleAislePut(w http.ResponseWriter, r *http.Request) {
+    id := r.URL.Query()["id"][0]
+    r.ParseForm()
+    aisle := model.Aisle{id, r.Form.Get("name")}
+    err := model.UpdateAisle(h.DB, aisle)
+    if err != nil {
+        return
+    }
+
     h.HandleAisleGet(w, r)
 }

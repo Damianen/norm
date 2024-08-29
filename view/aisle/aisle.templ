@@ -25,7 +25,7 @@ templ Show(aisles []model.Aisle, errorComp templ.Component, err bool) {
 								<table class="min-w-full divide-y divide-gray-700">
 									<thead>
 										<tr>
-											<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0">Naam</th>
+											<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-0"><p class="pl-4">Naam</p></th>
 											<th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
 												<span class="sr-only">Delete</span>
 											</th>
@@ -33,10 +33,10 @@ templ Show(aisles []model.Aisle, errorComp templ.Component, err bool) {
 									</thead>
 									<tbody class="divide-y divide-gray-800">
 										for _, aisle := range aisles {
-											<tr hx-trigger="click" hx-get={ "/aisle?id=" + aisle.Id } class="cursor-pointer" hx-target="#contentDiv" hx-swap="innerHTML">
-												<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0">{ aisle.Name }</td>
+											<tr hx-trigger="click" hx-get={ "/aisleGet?id=" + aisle.Id } class="cursor-pointer hover:bg-gray-600" hx-target="#contentDiv" hx-swap="innerHTML">
+												<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0"><p class="pl-4">{ aisle.Name }</p></td>
 												<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-													<button hx-delete={ "/aisle?delete=" + aisle.Id } hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="text-indigo-400 hover:text-indigo-300">Delete<span class="sr-only">{ aisle.Name }</span></button>
+													<button hx-delete={ "/aisle?delete=" + aisle.Id } hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="text-indigo-400 hover:text-indigo-300 pr-4">Delete<span class="sr-only">{ aisle.Name }</span></button>
 												</td>
 											</tr>
 										}
@@ -72,13 +72,39 @@ templ NewAisle() {
 	</div>
 }
 
+templ UpdateAisle(aisle model.Aisle) {
+	<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+			<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Pas gang aan</h2>
+		</div>
+		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+			<form class="space-y-6" hx-put={ "/aisle?id=" + aisle.Id } hx-target="#contentDiv" hx-swap="innerHTML">
+				<div>
+					<label for="name" class="block text-sm font-medium leading-6 text-white">Naam</label>
+					<div class="mt-2">
+						<input id="name" name="name" type="name" required value={ aisle.Name } class="block w-full rounded-md border-0 bg-white/5 p-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"/>
+					</div>
+				</div>
+				<div>
+					<button type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Pas gang aan</button>
+				</div>
+			</form>
+		</div>
+	</div>
+}
+
 templ AisleInfo(aisle model.Aisle) {
 	<div>
-		<div class="px-4 sm:px-0">
-			<h3 class="text-base font-semibold leading-7 text-white">Gang Informatie</h3>
-			<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">Statestieken en informatie over de { aisle.Name } gang</p>
+		<div class="sm:flex sm:items-center">
+			<div class="px-4 sm:px-0 sm:flex-auto">
+				<h3 class="text-base font-semibold leading-7 text-white">Gang Informatie</h3>
+				<p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">Statestieken en informatie over de { aisle.Name } gang</p>
+			</div>
+			<div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+				<button hx-get={ "/aisleUpdate?id=" + aisle.Id } hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Pas gang aan</button>
+			</div>
 		</div>
-		<div class="mt-6 border-t border-white/10">
+		<div class="mt-6 border-t border-b border-white/10">
 			<dl class="divide-y divide-white/10">
 				<div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
 					<dt class="text-sm font-medium leading-6 text-white">Naam</dt>
