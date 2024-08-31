@@ -28,6 +28,11 @@ func (h ManagementHandler) HandleManagement(w http.ResponseWriter, r *http.Reque
     case "POST":
         h.handleManagementInsert(w, r)
         return
+    case "PUT":
+        h.handleManagementUpdate(w, r)
+        return
+    case "DELETE":
+        h.handleManagementDelete(w, r)
 }
 }
 
@@ -38,6 +43,14 @@ func (h ManagementHandler) HandleInsertManagementShow(w http.ResponseWriter, r *
         return
     }
     management.NewManagement().Render(r.Context(), w)
+}
+
+func (h ManagementHandler) HandleManagementUpdateShow(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (h ManagementHandler) HandleManagementInfoShow(w http.ResponseWriter, r *http.Request) {
+
 }
 
 func (h ManagementHandler) handleManagementShow(w http.ResponseWriter, r *http.Request) {
@@ -65,4 +78,12 @@ func (h ManagementHandler) handleManagementInsert(w http.ResponseWriter, r *http
         return
     }
     h.handleManagementShow(w, r)
+}
+
+func (h ManagementHandler) handleManagementUpdate(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (h ManagementHandler) handleManagementDelete( w http.ResponseWriter, r *http.Request) {
+
 }

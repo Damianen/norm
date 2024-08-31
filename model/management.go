@@ -7,7 +7,7 @@ import (
 )
 
 type Management struct {
-	Id       int
+	Id       string
 	Pnl      string
 	Password string
 	Name     string
@@ -49,24 +49,25 @@ func GetManagementWithPnl(db *sql.DB, pnl string) (Management, error) {
 
 func GetManagement(db *sql.DB) ([]Management, error) {
 
-    query := "SELECT name, pnl, email, function FROM Management"
+    query := "SELECT id, name, pnl, email, function FROM Management"
     data, err := db.Query(query)
     if err != nil {
         return nil, err
     }
 
     management := []Management{}
+    var id string
     var name string
     var pnl string
     var email string
     var function string
 
     for data.Next() {
-        err := data.Scan(&name, &pnl, &email, &function)
+        err := data.Scan(&id, &name, &pnl, &email, &function)
         if err != nil {
             return nil, err
         }
-        management = append(management, Management{-1, pnl, "", name, email, function})
+        management = append(management, Management{id, pnl, "", name, email, function})
     }
 
     return management, nil

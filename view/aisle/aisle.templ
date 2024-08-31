@@ -36,7 +36,7 @@ templ Show(aisles []model.Aisle, errorComp templ.Component, err bool) {
 											<tr hx-trigger="click" hx-get={ "/aisleGet?id=" + aisle.Id } class="cursor-pointer hover:bg-gray-600" hx-target="#contentDiv" hx-swap="innerHTML">
 												<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-0"><p class="pl-4">{ aisle.Name }</p></td>
 												<td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-													<button hx-delete={ "/aisle?delete=" + aisle.Id } hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="text-indigo-400 hover:text-indigo-300 pr-4">Delete<span class="sr-only">{ aisle.Name }</span></button>
+													<button hx-delete={ "/aisle?delete=" + aisle.Id } hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="text-indigo-400 hover:text-indigo-300 pr-4">Verwijderen<span class="sr-only">{ aisle.Name }</span></button>
 												</td>
 											</tr>
 										}

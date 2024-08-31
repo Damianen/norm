@@ -45,11 +45,13 @@ func main() {
     http.HandleFunc("/aisleInsert", aisleHandler.HandleAisleInsertShow)
 
     http.HandleFunc("/aisleUpdate", aisleHandler.HandleAisleUpdateShow)
+    http.HandleFunc("/managementUpdate", managementHandler.HandleManagementUpdateShow)
 
     http.HandleFunc("/aisleGet", aisleHandler.HandleAisleInfoShow)
+    http.HandleFunc("/managementGet"), manamanagementHandler.HandleManagementInfoShow)
 
 	fmt.Println("Server is listening on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":3001", nil))
 
 	db.Close()
 }

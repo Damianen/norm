@@ -82,14 +82,14 @@ func Show(aisles []model.Aisle, errorComp templ.Component, err bool) templ.Compo
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-trigger=\"click\" hx-target=\"#contentDiv\" hx-swap=\"innerHTML\" class=\"text-indigo-400 hover:text-indigo-300 pr-4\">Delete<span class=\"sr-only\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-trigger=\"click\" hx-target=\"#contentDiv\" hx-swap=\"innerHTML\" class=\"text-indigo-400 hover:text-indigo-300 pr-4\">Verwijderen<span class=\"sr-only\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(aisle.Name)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/aisle/aisle.templ`, Line: 39, Col: 217}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/aisle/aisle.templ`, Line: 39, Col: 222}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {

@@ -61,7 +61,7 @@ func getCookieData(r *http.Request) (model.Management, error) {
 		management := model.Management{}
 		management.Email = data["Email"].(string)
 		management.Function = data["Function"].(string)
-		management.Id = int(data["Id"].(float64))
+		management.Id = data["Id"].(string)
 		management.Name = data["Name"].(string)
 		management.Pnl = data["Pnl"].(string)
 		return management, nil
