@@ -72,3 +72,24 @@ func GetManagement(db *sql.DB) ([]Management, error) {
 
     return management, nil
 }
+
+func GetManagementWithId(db *sql.DB, id string) (Management, error) {
+    management := Management{}
+
+	query := "SELECT id, password, name, email, function, pnl FROM Management WHERE id = $1"
+	err := db.QueryRow(query, id).Scan(&management.Id, &management.Password, &management.Name, &management.Email, &management.Function, &management.Pnl)
+    if err != nil {
+        return Management{}, err
+    }
+
+	return management, nil
+}
+
+func DeleteManagement(db *sql.DB, id string) (error) {
+
+    return nil
+}
+
+func UpdateManagement(db *sql.DB, management Management) (error) {
+    return nil
+}

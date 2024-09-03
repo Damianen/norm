@@ -50,7 +50,14 @@ func (h ManagementHandler) HandleManagementUpdateShow(w http.ResponseWriter, r *
 }
 
 func (h ManagementHandler) HandleManagementInfoShow(w http.ResponseWriter, r *http.Request) {
+    id := r.URL.Query()["id"][0]
+    managementModel, err := model.GetManagementWithId(h.DB, id)
+    if err != nil {
+        management.Show(nil, popup.Err(err.Error()), true).Render(r.Context(), w)
+        return
+    }
 
+    management.ManagementInfo(managementModel).Render(r.Context(), w)
 }
 
 func (h ManagementHandler) handleManagementShow(w http.ResponseWriter, r *http.Request) {

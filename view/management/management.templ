@@ -57,11 +57,46 @@ templ Show(management []model.Management, errorComp templ.Component, err bool) {
 	</div>
 }
 
+templ ManagementInfo(management model.Management) {
+	<div>
+	<div class="sm:flex sm:items-center">
+  <div class="px-4 sm:px-0 sm:flex-auto">
+    <h3 class="text-base font-semibold leading-7 text-white">Management informatie</h3>
+    <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-400">Persoonlijke informatie van { management.Name }</p>
+  </div>
+  <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
+				<button hx-get={ "/managementUpdate?id=" + management.Id } hx-trigger="click" hx-target="#contentDiv" hx-swap="innerHTML" class="block rounded-md bg-indigo-500 px-3 py-2 text-center text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Pas management aan</button>
+		</div>
+		</div>
+  <div class="mt-6 border-t border-white/10">
+    <dl class="divide-y divide-white/10">
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-white">Naam</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">{ management.Name }</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-white">Pnl</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">{ management.Pnl }</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-white">Email addres</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">{ management.Email }</dd>
+      </div>
+      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-white">Funcie</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-400 sm:col-span-2 sm:mt-0">{ management.Function }</dd>
+      </div>
+    </dl>
+  </div>
+</div>
+}
+
 templ NewManagement() {
 	<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
 		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
 			<h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">Nieuwe manager of shiftleider</h2>
 		</div>
+		
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 			<form class="space-y-6" hx-post="/management" hx-target="#contentDiv" hx-swap="innerHTML">
 				<div>
